@@ -119,7 +119,6 @@ span.hightlight{
                                 <span><small><i class="fa fa-cog text-primary"></i> <?php echo $tt[$row['transmission_id']] ?></small></span>
                                 <span><small><i class="fa fa-gas-pump text-primary"></i> <?php echo $et[$row['engine_id']] ?></small></span>
                                 <hr class="divider"  style="max-width: calc(80%)">
-                                <button class="btn btn-primary float-right read_more" data-id="<?php echo $row['id'] ?>">Read More</button>
                             </div>
                         </div>
                         
