@@ -140,7 +140,7 @@ ob_end_flush();
             <input type="password" id="password" name="password" class="form-control" required>
           </div>
           <div class="form-group d-none" id="code-field">
-            <label for="code">2FA Code</label>
+            <label for="code">An OTP has been sent to your email</label>
             <input type="text" id="code" name="code" class="form-control" autocomplete="one-time-code">
           </div>
           <button type="submit" class="btn btn-primary">Login</button>
@@ -210,7 +210,7 @@ $(document).ready(function() {
         if (resp === '1') {
           window.location.href = 'index.php?page=home';
         } else {
-          $('#login-form').prepend('<div class="alert alert-danger">Invalid or expired 2FA code.</div>');
+          $('#login-form').prepend('<div class="alert alert-danger">Invalid or expired OTP.</div>');
           $('.btn-primary').removeAttr('disabled').text('Verify');
         }
       },

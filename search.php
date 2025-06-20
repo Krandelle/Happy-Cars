@@ -134,13 +134,18 @@ header.masthead, header.masthead:before {
 
 <script>
 $('.book-cars').click(function(){
-    uni_modal("Submit Booking Request","booking.php?car_id="+$(this).attr('data-id')+'&pickup=<?php echo $_GET['pickup'] ?>&dropoff=<?php echo $_GET['dropoff'] ?>','mid-large')
-})
+    // Open booking modal WITHOUT footer save button
+    uni_modal("Submit Booking Request", 
+        "booking.php?car_id=" + $(this).attr('data-id') + '&pickup=<?php echo $_GET['pickup'] ?>&dropoff=<?php echo $_GET['dropoff'] ?>', 
+        'mid-large no-footer');
+});
+
 $('.cars-img img').click(function(){
     viewer_modal($(this).attr('src'))
-})
+});
+
 $('#find-car').submit(function(e){
-    e.preventDefault()
-    location.href = 'index.php?page=search&'+$(this).serialize()
-})
+    e.preventDefault();
+    location.href = 'index.php?page=search&'+$(this).serialize();
+});
 </script>

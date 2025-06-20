@@ -110,3 +110,18 @@ Failed to send 2FA code to: krandellejosh.kalaw@cvsu.edu.ph
 2025-06-20 04:53:54 - 2FA email sent to: krandellek@gmail.com
 2025-06-20 04:54:07 - 2FA checking: input=236872 | db_code=236872 | expiry=2025-06-20 04:58:49 | now=2025-06-20 04:54:07
 2025-06-20 04:54:07 - 2FA verified successfully for user ID: 3
+2025-06-20 11:40:50 - LOGIN - Username: admin
+2025-06-20 11:40:55 - 2FA email sent to: krandellejosh.kalaw@cvsu.edu.ph
+2025-06-20 11:41:14 - 2FA checking: input=958471 | db_code=958471 | expiry=2025-06-20 11:45:50 | now=2025-06-20 11:41:14
+2025-06-20 11:41:14 - 2FA verified successfully for user ID: 1
+2025-06-20 11:44:28 - LOGIN - Username: admin
+2025-06-20 11:44:33 - 2FA email sent to: krandellejosh.kalaw@cvsu.edu.ph
+2025-06-20 11:45:56 - LOGIN - Username: admin
+2025-06-20 11:46:01 - 2FA email sent to: krandellejosh.kalaw@cvsu.edu.ph
+2025-06-20 11:46:23 - 2FA checking: input=103779 | db_code=103779 | expiry=2025-06-20 11:50:56 | now=2025-06-20 11:46:23
+2025-06-20 11:46:23 - 2FA verified successfully for user ID: 1
+2025-06-20 11:58:33 - Upload error: 
+2025-06-20 12:13:44 - Upload error: 4
+2025-06-20 12:26:42 - Upload error: 
+2025-06-20 13:41:48 - LOGIN - Username: admin
+2025-06-20 13:41:52 - 2FA email sent to: krandellejosh.kalaw@cvsu.edu.ph

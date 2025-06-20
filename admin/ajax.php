@@ -10,8 +10,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 $crud = new Action();
-
-// Load SMTP config from env.php
 $config = include 'env.php';
 
 function log_debug($msg) {
@@ -29,47 +27,39 @@ if (!$conn) {
 
 $action = $_GET['action'] ?? '';
 
-// === LOGIN ===
 if ($action === 'login') {
     $username = $_POST['username'] ?? '';
     $password = md5($_POST['password'] ?? '');
 
     log_debug("LOGIN - Username: $username");
 
-    $qry = $conn->query("SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if (!$qry) {
-        log_debug("Query failed: " . $conn->error);
-        ob_clean(); echo '0'; flush(); exit;
-    }
-
-    if ($qry->num_rows > 0) {
-        $user = $qry->fetch_array();
-
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_array();
         if (($user['type'] == 1 || $user['type'] == 2) && !empty($user['email'])) {
             $code = rand(100000, 999999);
             $expiry = date("Y-m-d H:i:s", strtotime('+5 minutes'));
-
             $conn->query("UPDATE users SET twofa_code = '$code', twofa_expiry = '$expiry' WHERE id = {$user['id']}");
 
             $mail = new PHPMailer(true);
-
             try {
                 $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com';
-                $mail->SMTPAuth   = true;
-                $mail->Username   = $config['SMTP_USER'];
-                $mail->Password   = $config['SMTP_PASS'];
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = $config['SMTP_USER'];
+                $mail->Password = $config['SMTP_PASS'];
                 $mail->SMTPSecure = 'tls';
-                $mail->Port       = 587;
-
+                $mail->Port = 587;
                 $mail->setFrom('yourgmail@gmail.com', 'HappyCars System');
                 $mail->addAddress($user['email'], $user['name']);
-                $mail->Subject = 'Your 2FA Code';
-                $mail->Body    = "Hello " . $user['name'] . ",\n\nYour 2FA code is: $code\n\nThis code will expire in 5 minutes.";
-
+                $mail->Subject = 'Your OTP';
+                $mail->Body = "Hello {$user['name']},\n\nYour OTP is: $code\n\nThis code will expire in 5 minutes.";
                 $mail->send();
-                log_debug("2FA email sent to: " . $user['email']);
+                log_debug("2FA email sent to: {$user['email']}");
             } catch (Exception $e) {
                 log_debug("2FA email failed: {$mail->ErrorInfo}");
             }
@@ -78,19 +68,15 @@ if ($action === 'login') {
             ob_clean(); echo '2FA'; flush(); exit;
         } else {
             $_SESSION['login_id'] = $user['id'];
-            log_debug("Logged in without 2FA");
             ob_clean(); echo '1'; flush(); exit;
         }
     } else {
-        log_debug("Login failed: invalid credentials");
         ob_clean(); echo '0'; flush(); exit;
     }
 }
 
-// === VERIFY 2FA ===
 if ($action === 'verify_2fa') {
     if (!isset($_SESSION['2fa_user_id'])) {
-        log_debug("2FA verify failed: session not set.");
         ob_clean(); echo '0'; flush(); exit;
     }
 
@@ -98,57 +84,104 @@ if ($action === 'verify_2fa') {
     $code = $_POST['code'] ?? '';
     $now = date("Y-m-d H:i:s");
 
-    $qry = $conn->query("SELECT * FROM users WHERE id = $user_id");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($qry && $qry->num_rows > 0) {
-        $user = $qry->fetch_array();
-        log_debug("2FA checking: input=$code | db_code={$user['twofa_code']} | expiry={$user['twofa_expiry']} | now=$now");
-
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_array();
         if ($user['twofa_code'] === $code && $now <= $user['twofa_expiry']) {
             $_SESSION['login_id'] = $user['id'];
             $_SESSION['login_name'] = $user['name'];
             $_SESSION['login_type'] = $user['type'];
-
             $conn->query("UPDATE users SET twofa_code = NULL, twofa_expiry = NULL WHERE id = $user_id");
             unset($_SESSION['2fa_user_id']);
-
-            log_debug("2FA verified successfully for user ID: $user_id");
             ob_clean(); echo '1'; flush(); exit;
         } else {
-            log_debug("2FA failed: wrong or expired code.");
             ob_clean(); echo '0'; flush(); exit;
         }
     } else {
-        log_debug("2FA user fetch failed.");
         ob_clean(); echo '0'; flush(); exit;
     }
 }
 
-// === FORWARD OTHER ACTIONS TO CLASS ===
-if ($action == 'login2') echo $crud->login2();
-if ($action == 'logout') echo $crud->logout();
-if ($action == 'logout2') echo $crud->logout2();
-if ($action == 'save_user') echo $crud->save_user();
-if ($action == 'delete_user') echo $crud->delete_user();
-if ($action == 'signup') echo $crud->signup();
-if ($action == 'update_account') echo $crud->update_account();
-if ($action == 'save_settings') echo $crud->save_settings();
-if ($action == 'save_category') echo $crud->save_category();
-if ($action == 'delete_category') echo $crud->delete_category();
-if ($action == 'save_transmission') echo $crud->save_transmission();
-if ($action == 'delete_transmission') echo $crud->delete_transmission();
-if ($action == 'save_engine') echo $crud->save_engine();
-if ($action == 'delete_engine') echo $crud->delete_engine();
-if ($action == 'save_car') echo $crud->save_car();
-if ($action == 'delete_car') echo $crud->delete_car();
-if ($action == 'save_book') echo $crud->save_book();
-if ($action == 'delete_book') echo $crud->delete_book();
-if ($action == 'get_booked_details') echo $crud->get_booked_details();
-if ($action == 'save_movement') echo $crud->save_movement();
-if ($action == 'delete_movement') echo $crud->delete_movement();
-if ($action == 'participate') echo $crud->participate();
-if ($action == 'get_venue_report') echo $crud->get_venue_report();
-if ($action == 'save_art_fs') echo $crud->save_art_fs();
-if ($action == 'delete_art_fs') echo $crud->delete_art_fs();
-if ($action == 'get_pdetails') echo $crud->get_pdetails();
-?>
+if ($action == 'delete_book') {
+    $id = $_POST['id'] ?? '';
+    if (!is_numeric($id)) {
+        echo 0; exit;
+    }
+    $stmt = $conn->prepare("DELETE FROM books WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    if ($stmt->execute()) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+    exit;
+}
+
+if ($action === 'save_book') {
+    $id = $_POST['id'] ?? '';
+    $name = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $contact = $_POST['contact'] ?? '';
+    $address = $_POST['address'] ?? '';
+    $pickup = $_POST['pickup_datetime'] ?? '';
+    $dropoff = $_POST['dropoff_datetime'] ?? '';
+    $car_id = $_POST['car_id'] ?? '';
+    $status = $_POST['status'] ?? 1; // Default to pending
+    $valid_id_path = '';
+
+    $upload_dir = 'admin/assets/uploads/valid_ids/';
+    if (!is_dir($upload_dir)) {
+        mkdir($upload_dir, 0755, true);
+    }
+
+    if (!empty($_FILES['valid_id']['tmp_name'])) {
+        $filename = time() . '_' . basename($_FILES['valid_id']['name']);
+        $target_file = $upload_dir . $filename;
+        if (move_uploaded_file($_FILES['valid_id']['tmp_name'], $target_file)) {
+            $valid_id_path = $target_file;
+        }
+    }
+
+    if (!empty($id)) {
+        // UPDATE booking
+        $update_fields = "car_id = ?, name = ?, email = ?, contact = ?, address = ?, pickup_datetime = ?, dropoff_datetime = ?, status = ?";
+        $params = [$car_id, $name, $email, $contact, $address, $pickup, $dropoff, $status];
+        $types = "issssssi";
+
+        if (!empty($valid_id_path)) {
+            $update_fields .= ", valid_id_path = ?";
+            $params[] = $valid_id_path;
+            $types .= "s";
+        }
+
+        $stmt = $conn->prepare("UPDATE books SET $update_fields WHERE id = ?");
+        $params[] = $id;
+        $types .= "i";
+        $stmt->bind_param($types, ...$params);
+        echo $stmt->execute() ? '1' : '0';
+    } else {
+        // INSERT new booking
+        $stmt = $conn->prepare("INSERT INTO books (car_id, name, email, contact, address, pickup_datetime, dropoff_datetime, valid_id_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssssssi", $car_id, $name, $email, $contact, $address, $pickup, $dropoff, $valid_id_path, $status);
+        echo $stmt->execute() ? '1' : '0';
+    }
+    exit;
+}
+
+
+// Forward to class
+$forwarded_actions = [
+    'login2', 'logout', 'logout2', 'save_user', 'delete_user', 'signup',
+    'update_account', 'save_settings', 'save_category', 'delete_category',
+    'save_transmission', 'delete_transmission', 'save_engine', 'delete_engine',
+    'save_car', 'delete_car', 'get_booked_details', 'save_movement',
+    'delete_movement', 'participate', 'get_venue_report', 'save_art_fs', 'delete_art_fs', 'get_pdetails'
+];
+
+if (in_array($action, $forwarded_actions)) {
+    echo $crud->$action();
+}

@@ -22,33 +22,43 @@
       })
   }
 
- 	window.uni_modal = function($title = '' , $url='',$size=''){
-    start_load()
+ 	window.uni_modal = function($title = '' , $url='', $size=''){
+    start_load();
     $.ajax({
-        url:$url,
-        error:err=>{
-            console.log()
-            alert("An error occured")
+        url: $url,
+        error: err => {
+            console.log(err);
+            alert("An error occurred");
         },
-        success:function(resp){
+        success: function(resp){
             if(resp){
-                $('#uni_modal .modal-title').html($title)
-                $('#uni_modal .modal-body').html(resp)
-                if($size != ''){
-                    $('#uni_modal .modal-dialog').addClass($size)
-                }else{
-                    $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md")
+                $('#uni_modal .modal-title').html($title);
+                $('#uni_modal .modal-body').html(resp);
+
+                // 🟡 Hide footer if "no-footer" flag is passed
+                if ($size.includes('no-footer')) {
+                    $('#uni_modal .modal-footer').hide();
+                    $size = $size.replace('no-footer', '').trim();
+                } else {
+                    $('#uni_modal .modal-footer').show();
                 }
+
+                if ($size !== '') {
+                    $('#uni_modal .modal-dialog').attr('class', 'modal-dialog ' + $size);
+                } else {
+                    $('#uni_modal .modal-dialog').attr('class', 'modal-dialog modal-md');
+                }
+
                 $('#uni_modal').modal({
-                  show:true,
-                  backdrop:'static',
-                  keyboard:false,
-                  focus:true
-                })
-                end_load()
+                    show: true,
+                    backdrop: 'static',
+                    keyboard: false,
+                    focus: true
+                });
+                end_load();
             }
         }
-    })
+    });
 }
   window.uni_modal_right = function($title = '' , $url=''){
     start_load()
