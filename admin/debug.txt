@@ -1,0 +1,61 @@
+Username: admin
+Password: 0192023a7bbd73250516f069df18b500
+Username: admin
+Password: 0192023a7bbd73250516f069df18b500
+Username: admin
+Password: 0192023a7bbd73250516f069df18b500
+Username: admin
+Password: 0192023a7bbd73250516f069df18b500
+LOGIN attempt - Username: admin | Password (MD5): 0192023a7bbd73250516f069df18b500
+User found: ID 1
+2FA generated and sent to krandellejosh.kalaw@cvsu.edu.ph
+LOGIN attempt - Username: admin | Password (MD5): 0192023a7bbd73250516f069df18b500
+User found: ID 1
+2FA generated and sent to krandellejosh.kalaw@cvsu.edu.ph
+LOGIN attempt - Username: admin | Password (MD5): 0192023a7bbd73250516f069df18b500
+User found: ID 1
+2FA generated and sent to krandellejosh.kalaw@cvsu.edu.ph
+LOGIN attempt - Username: admin | Password (MD5): 0192023a7bbd73250516f069df18b500
+User found: ID 1
+2FA generated and sent to krandellejosh.kalaw@cvsu.edu.ph
+LOGIN attempt - Username: admin | Password (MD5): 0192023a7bbd73250516f069df18b500
+User found: ID 1
+Failed to send 2FA code to: krandellejosh.kalaw@cvsu.edu.ph
+LOGIN attempt - Username: admin | Password (MD5): 0192023a7bbd73250516f069df18b500
+User found: ID 1
+Failed to send 2FA code to: krandellejosh.kalaw@cvsu.edu.ph
+LOGIN attempt - Username: admin | Password (MD5): 0192023a7bbd73250516f069df18b500
+User found: ID 1
+Failed to send 2FA code to: krandellejosh.kalaw@cvsu.edu.ph
+LOGIN attempt - Username: admin | Password (MD5): 0192023a7bbd73250516f069df18b500
+User found: ID 1
+Failed to send 2FA code to: krandellejosh.kalaw@cvsu.edu.ph
+LOGIN attempt - Username: admin | Password (MD5): 0192023a7bbd73250516f069df18b500
+User found: ID 1
+Failed to send 2FA code to: krandellejosh.kalaw@cvsu.edu.ph
+2025-06-20 03:18:39 - LOGIN - Username: admin
+2025-06-20 03:18:41 - 2FA code generated: 857494 | Email to: krandellejosh.kalaw@cvsu.edu.ph | Sent: No
+2025-06-20 03:21:34 - LOGIN - Username: admin
+2025-06-20 03:21:36 - 2FA code generated: 342271 | Email to: krandellejosh.kalaw@cvsu.edu.ph | Sent: No
+2025-06-20 03:26:28 - LOGIN - Username: admin
+2025-06-20 03:26:30 - 2FA code generated: 238096 | Email to: krandellejosh.kalaw@cvsu.edu.ph | Sent: No
+2025-06-20 03:28:51 - LOGIN - Username: admin
+2025-06-20 03:28:53 - 2FA code generated: 537817 | Email to: krandellejosh.kalaw@cvsu.edu.ph | Sent: No
+2025-06-20 03:29:09 - 2FA checking: input=537817 | db_code=537817 | expiry=2025-06-20 03:33:51 | now=2025-06-20 03:29:09
+2025-06-20 03:29:09 - 2FA verified successfully for user ID: 1
+2025-06-20 03:32:25 - LOGIN - Username: admin
+2025-06-20 03:32:27 - 2FA code generated: 201488 | Email to: krandellejosh.kalaw@cvsu.edu.ph | Sent: No
+2025-06-20 03:32:36 - 2FA checking: input=201488 | db_code=201488 | expiry=2025-06-20 03:37:25 | now=2025-06-20 03:32:36
+2025-06-20 03:32:36 - 2FA verified successfully for user ID: 1
+2025-06-20 03:34:49 - LOGIN - Username: Del
+2025-06-20 03:34:49 - Login failed: invalid credentials
+2025-06-20 03:35:33 - LOGIN - Username: Del
+2025-06-20 03:35:33 - Login failed: invalid credentials
+2025-06-20 03:35:39 - LOGIN - Username: admin
+2025-06-20 03:35:41 - 2FA code generated: 638894 | Email to: krandellejosh.kalaw@cvsu.edu.ph | Sent: No
+2025-06-20 03:36:37 - 2FA checking: input=638894 | db_code=638894 | expiry=2025-06-20 03:40:39 | now=2025-06-20 03:36:37
+2025-06-20 03:36:37 - 2FA verified successfully for user ID: 1
+2025-06-20 03:41:45 - LOGIN - Username: Del
+2025-06-20 03:41:47 - 2FA code generated: 511985 | Email to: krandellek@gmail.com | Sent: No
+2025-06-20 03:41:57 - 2FA checking: input=511985 | db_code=511985 | expiry=2025-06-20 03:46:45 | now=2025-06-20 03:41:57
+2025-06-20 03:41:57 - 2FA verified successfully for user ID: 2
