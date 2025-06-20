@@ -59,3 +59,54 @@ Failed to send 2FA code to: krandellejosh.kalaw@cvsu.edu.ph
 2025-06-20 03:41:47 - 2FA code generated: 511985 | Email to: krandellek@gmail.com | Sent: No
 2025-06-20 03:41:57 - 2FA checking: input=511985 | db_code=511985 | expiry=2025-06-20 03:46:45 | now=2025-06-20 03:41:57
 2025-06-20 03:41:57 - 2FA verified successfully for user ID: 2
+2025-06-20 04:07:14 - LOGIN - Username: admin
+2025-06-20 04:07:17 - 2FA email failed: SMTP Error: Could not authenticate.
+2025-06-20 04:08:54 - 2FA checking: input=172295 | db_code=172295 | expiry=2025-06-20 04:12:14 | now=2025-06-20 04:08:54
+2025-06-20 04:08:54 - 2FA verified successfully for user ID: 1
+2025-06-20 04:10:49 - LOGIN - Username: admin
+2025-06-20 04:10:54 - 2FA email sent to: krandellejosh.kalaw@cvsu.edu.ph
+2025-06-20 04:11:07 - 2FA checking: input=317738 | db_code=317738 | expiry=2025-06-20 04:15:49 | now=2025-06-20 04:11:07
+2025-06-20 04:11:07 - 2FA verified successfully for user ID: 1
+2025-06-20 04:25:31 - LOGIN - Username: admin
+2025-06-20 04:25:36 - 2FA email sent to: krandellejosh.kalaw@cvsu.edu.ph
+2025-06-20 04:25:51 - 2FA checking: input=859266 | db_code=859266 | expiry=2025-06-20 04:30:31 | now=2025-06-20 04:25:51
+2025-06-20 04:25:51 - 2FA verified successfully for user ID: 1
+2025-06-20 04:35:40 - LOGIN - Username: admin
+2025-06-20 04:35:40 - 2FA email failed: Invalid address:  (From): 
+2025-06-20 04:36:21 - LOGIN - Username: admin
+2025-06-20 04:36:25 - 2FA email sent to: krandellejosh.kalaw@cvsu.edu.ph
+2025-06-20 04:36:42 - 2FA checking: input=319831 | db_code=319831 | expiry=2025-06-20 04:41:21 | now=2025-06-20 04:36:42
+2025-06-20 04:36:42 - 2FA verified successfully for user ID: 1
+2025-06-20 04:36:52 - LOGIN - Username: del
+2025-06-20 04:36:56 - 2FA email sent to: krandellek@gmail.com
+2025-06-20 04:37:12 - 2FA checking: input=174639 | db_code=174639 | expiry=2025-06-20 04:41:52 | now=2025-06-20 04:37:12
+2025-06-20 04:37:12 - 2FA verified successfully for user ID: 2
+2025-06-20 04:38:06 - LOGIN - Username: admin
+2025-06-20 04:38:06 - 2FA email failed: Invalid address:  (From): 
+2025-06-20 04:38:53 - 2FA checking: input= | db_code=988442 | expiry=2025-06-20 04:43:06 | now=2025-06-20 04:38:53
+2025-06-20 04:38:53 - 2FA failed: wrong or expired code.
+2025-06-20 04:39:01 - LOGIN - Username: Del
+2025-06-20 04:39:05 - 2FA email sent to: krandellek@gmail.com
+2025-06-20 04:39:17 - 2FA checking: input=127533 | db_code=127533 | expiry=2025-06-20 04:44:01 | now=2025-06-20 04:39:17
+2025-06-20 04:39:17 - 2FA verified successfully for user ID: 2
+2025-06-20 04:44:04 - LOGIN - Username: admin
+2025-06-20 04:44:07 - 2FA email failed: SMTP Error: Could not authenticate.
+2025-06-20 04:45:59 - LOGIN - Username: admin
+2025-06-20 04:45:59 - Loaded SMTP_USER: 
+2025-06-20 04:46:02 - 2FA email failed: SMTP Error: Could not authenticate.
+2025-06-20 04:48:34 - LOGIN - Username: del
+2025-06-20 04:48:39 - 2FA email sent to: krandellek@gmail.com
+2025-06-20 04:49:02 - 2FA checking: input=601522 | db_code=601522 | expiry=2025-06-20 04:53:34 | now=2025-06-20 04:49:02
+2025-06-20 04:49:02 - 2FA verified successfully for user ID: 2
+2025-06-20 04:52:19 - LOGIN - Username: Del
+2025-06-20 04:52:23 - 2FA email sent to: krandellek@gmail.com
+2025-06-20 04:52:37 - 2FA checking: input=299056 | db_code=299056 | expiry=2025-06-20 04:57:19 | now=2025-06-20 04:52:37
+2025-06-20 04:52:37 - 2FA verified successfully for user ID: 2
+2025-06-20 04:52:47 - LOGIN - Username: admin
+2025-06-20 04:52:51 - 2FA email sent to: krandellejosh.kalaw@cvsu.edu.ph
+2025-06-20 04:53:00 - 2FA checking: input=321502 | db_code=321502 | expiry=2025-06-20 04:57:47 | now=2025-06-20 04:53:00
+2025-06-20 04:53:00 - 2FA verified successfully for user ID: 1
+2025-06-20 04:53:49 - LOGIN - Username: JohnLloyd
+2025-06-20 04:53:54 - 2FA email sent to: krandellek@gmail.com
+2025-06-20 04:54:07 - 2FA checking: input=236872 | db_code=236872 | expiry=2025-06-20 04:58:49 | now=2025-06-20 04:54:07
+2025-06-20 04:54:07 - 2FA verified successfully for user ID: 3

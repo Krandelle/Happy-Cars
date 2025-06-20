@@ -2,19 +2,26 @@
 session_start();
 include 'db_connect.php';
 include 'admin_class.php';
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 $crud = new Action();
 
-// Debug logger
+// Load SMTP config from env.php
+$config = include 'env.php';
+
 function log_debug($msg) {
     file_put_contents('debug.txt', date("Y-m-d H:i:s") . " - " . $msg . "\n", FILE_APPEND);
 }
 
-// Error reporting
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Ensure DB works
 if (!$conn) {
     log_debug("DB connect error: " . mysqli_connect_error());
     exit('Database connection failed.');
@@ -45,17 +52,33 @@ if ($action === 'login') {
 
             $conn->query("UPDATE users SET twofa_code = '$code', twofa_expiry = '$expiry' WHERE id = {$user['id']}");
 
-            $sent = @mail($user['email'], "Your 2FA Code", "Your 2FA code is: $code\n\nExpires in 5 minutes.");
+            $mail = new PHPMailer(true);
 
-            log_debug("2FA code generated: $code | Email to: {$user['email']} | Sent: " . ($sent ? "Yes" : "No"));
+            try {
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = $config['SMTP_USER'];
+                $mail->Password   = $config['SMTP_PASS'];
+                $mail->SMTPSecure = 'tls';
+                $mail->Port       = 587;
+
+                $mail->setFrom('yourgmail@gmail.com', 'HappyCars System');
+                $mail->addAddress($user['email'], $user['name']);
+                $mail->Subject = 'Your 2FA Code';
+                $mail->Body    = "Hello " . $user['name'] . ",\n\nYour 2FA code is: $code\n\nThis code will expire in 5 minutes.";
+
+                $mail->send();
+                log_debug("2FA email sent to: " . $user['email']);
+            } catch (Exception $e) {
+                log_debug("2FA email failed: {$mail->ErrorInfo}");
+            }
 
             $_SESSION['2fa_user_id'] = $user['id'];
-
             ob_clean(); echo '2FA'; flush(); exit;
         } else {
             $_SESSION['login_id'] = $user['id'];
             log_debug("Logged in without 2FA");
-
             ob_clean(); echo '1'; flush(); exit;
         }
     } else {
@@ -101,7 +124,7 @@ if ($action === 'verify_2fa') {
     }
 }
 
-// === OTHER ACTIONS ===
+// === FORWARD OTHER ACTIONS TO CLASS ===
 if ($action == 'login2') echo $crud->login2();
 if ($action == 'logout') echo $crud->logout();
 if ($action == 'logout2') echo $crud->logout2();
@@ -128,3 +151,4 @@ if ($action == 'get_venue_report') echo $crud->get_venue_report();
 if ($action == 'save_art_fs') echo $crud->save_art_fs();
 if ($action == 'delete_art_fs') echo $crud->delete_art_fs();
 if ($action == 'get_pdetails') echo $crud->get_pdetails();
+?>
